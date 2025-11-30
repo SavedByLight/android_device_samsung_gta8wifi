@@ -1,9 +1,5 @@
 on init
-    # unlink /efs > /mnt/vendor/efs
-    rm /efs
-    mkdir /efs
-    mkdir /sec_efs
-    
+
     # Services
 service healthd /system/bin/healthd -r
     critical
