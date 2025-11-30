@@ -1,50 +1,18 @@
-# Logical Partitions
-/system           ext4    /dev/block/mapper/system			flags=display="System";backup=1
-/system_ext	      ext4	  /dev/block/mapper/system_ext	flags=display="System_EXT";backup=1
-/vendor	          ext4	  /dev/block/mapper/vendor      flags=display="Vendor";backup=1
-/product           ext4    /dev/block/mapper/product     flags=display="Product";backup=1
 
-# Physical Partitions
-/boot             emmc    /dev/block/by-name/boot              flags=display="Boot";backup=1;flashimg=1
-/recovery         emmc    /dev/block/by-name/recovery          flags=display="Recovery";backup=1;flashimg=1
-/teecfg           emmc    /dev/block/by-name/teecfg            flags=display="teecfg";backup=1
-/vbmeta           emmc    /dev/block/by-name/vbmeta            flags=display="vbmeta";backup=1;flashimg=1
-/vbmeta_system    emmc    /dev/block/by-name/vbmeta_system     flags=display="vbmeta_system";backup=1;flashimg=1
-/vbmeta_vendor    emmc    /dev/block/by-name/vbmeta_vendor     flags=display="vbmeta_vendor";backup=1;flashimg=1
-/dtbo             emmc    /dev/block/by-name/dtbo              flags=display="dtbo";backup=1;flashimg=1
-/persist          emmc    /dev/block/by-name/persist           flags=display="Persist";backup=1
+# Logical partitions
+system         /system     ext4    display="System"
+system_ext     /system_ext ext4    display="System_EXT"
+vendor         /vendor     ext4    display="Vendor"
+product        /product    ext4    display="Product"
 
-/dev/block/by-name/l_ldsp                /ltedsp             emmc    defaults    defaults
-/dev/block/by-name/l_gdsp                /ltegdsp            emmc    defaults    defaults
-/dev/block/by-name/l_agdsp               /lteagdsp            emmc    defaults   defaults
-/dev/block/by-name/l_cdsp                /ltecdsp            emmc    defaults    defaults
-/dev/block/by-name/l_modem               /ltemodem           emmc    defaults    defaults
-/dev/block/by-name/l_fixnv1              /ltefixnv1          emmc    defaults    defaults
-/dev/block/by-name/l_fixnv2              /ltefixnv2          emmc    defaults    defaults
-/dev/block/by-name/l_deltanv             /ltedeltanv         emmc    defaults    defaults
-/dev/block/by-name/wcnmodem              /wcnmodem           emmc    defaults    defaults
-/dev/block/by-name/gnssmodem             /gnssmodem          emmc    defaults    defaults
-/dev/block/by-name/pm_sys                /pmsys              emmc    defaults    defaults
+# Physical partitions
+/boot          emmc        /dev/block/by-name/boot                       flags=backup=1;display="Boot";flashimg=1
+/recovery      emmc        /dev/block/by-name/recovery                   flags=backup=1;display="Recovery";flashimg=1
+/misc          emmc        /dev/block/by-name/misc
+/cache         ext4        /dev/block/by-name/cache                      flags=backup=1;display="Cache"
+/metadata      ext4        /dev/block/by-name/metadata                   flags=backup=1;display="Metadata"
+/data          f2fs        /dev/block/by-name/userdata
 
-
-/dev/block/by-name/metadata	/metadata	ext4	noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic,sync	wait,formattable,first_stage_mount,check
-
-/dev/block/by-name/socko                 /socko              ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc    wait,check
-/dev/block/by-name/odmko                 /odmko              ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc    wait,check
-
-/dev/block/by-name/cache                 /cache              ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc    wait,check
-/dev/block/by-name/prodnv                /mnt/vendor         ext4    noatime,nosuid,nodev,nomblk_io_submit,noauto_da_alloc     wait,check
-
-/dev/block/by-name/userdata	/data	f2fs	noatime,nosuid,nodev,discard,usrquota,grpquota,fsync_mode=nobarrier,reserve_root=32768,resgid=5678	recoveryonly
-/dev/block/mmcblk1p1                     /sdcard             sdfat    defaults    defaults
-/dev/block/by-name/sec_efs               /efs                ext4    defaults    recoveryonly
-/dev/block/by-name/sec_efs               /sec_efs            ext4    defaults    recoveryonly
-
-
-
-
-
-#Auto-generated code by FOTA Build Portal
-/dev/block/by-name/l_deltanv	/deltanv	emmc	default	recoveryonly
-/dev/block/by-name/l_fixnv2	/nvitem	emmc	default	recoveryonly
-/dev/block/by-name/pm_sys	/qogirl6_m3l_cm4	emmc	default	recoveryonly
+# Removable storage
+/external_sd   auto        /dev/block/mmcblk1p1    /dev/block/mmcblk1    flags=display="Micro SD card";storage;wipeingui;removable
+/usb-otg       vfat        /dev/block/sda1         /dev/block/sda        flags=display="USB-OTG";storage;wipeingui;removable
